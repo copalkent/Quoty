@@ -350,8 +350,54 @@ fn start_position_watcher(app: AppHandle) {
     });
 }
 
+static ALREADY_RUNNING_DIALOG_OPEN: AtomicBool = AtomicBool::new(false);
+
+/// Tells the user that the widget they just tried to launch is already running.
+///
+/// The single-instance callback runs on the running app's message loop, so the
+/// dialog is created on a worker thread to keep the widget and tray responsive.
+fn show_already_running_message() {
+    #[cfg(windows)]
+    {
+        if ALREADY_RUNNING_DIALOG_OPEN.swap(true, Ordering::SeqCst) {
+            return;
+        }
+
+        std::thread::spawn(|| {
+            use windows::Win32::UI::WindowsAndMessaging::{
+                MessageBoxW, MB_ICONINFORMATION, MB_OK, MB_SETFOREGROUND, MB_TOPMOST,
+            };
+
+            // SAFETY: the dialog is a standalone top-level window; no borrowed
+            // handles or pointers outlive this call.
+            unsafe {
+                let _ = MessageBoxW(
+                    None,
+                    windows::core::w!("Quoty is already running."),
+                    windows::core::w!("Quoty"),
+                    MB_OK | MB_ICONINFORMATION | MB_SETFOREGROUND | MB_TOPMOST,
+                );
+            }
+
+            ALREADY_RUNNING_DIALOG_OPEN.store(false, Ordering::SeqCst);
+        });
+    }
+
+    #[cfg(not(windows))]
+    println!("Quoty is already running.");
+}
+
 pub fn run() {
     let app = tauri::Builder::default()
+        // This must be registered before every other plugin so a second launch
+        // is rejected before it can build a second tray or webview.
+        .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
+            if let Some(window) = main_window(app) {
+                window_ctl::ensure_visible(&window);
+                window_ctl::show_without_focus(&window);
+            }
+            show_already_running_message();
+        }))
         .plugin(tauri_plugin_autostart::init(
             tauri_plugin_autostart::MacosLauncher::LaunchAgent,
             None,
