@@ -213,6 +213,7 @@ cargo test --manifest-path src-tauri/Cargo.toml
 | “Session not accepted” | Restart Antigravity so it issues a new local session token, then refresh. |
 | “Quota API unavailable” | Update Antigravity. Its quota endpoints may have changed. |
 | Widget is hidden | Tray icon → **Show widget**. |
+| **Quoty is already running.** | A copy is already open. The existing widget was revealed; use its tray icon for Settings or Quit. |
 | Spotify isn't showing a track | Start playback in the Spotify desktop app. Quoty reads the window title in the form `Artist - Track`. |
 | Widget is behind other windows | This is the default desktop behavior. Enable **Always on top** in Settings to keep it above them. |
 | SmartScreen warning | The build is unsigned. Verify the SHA-256 and use **More info → Run anyway**. |

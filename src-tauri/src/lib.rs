@@ -389,8 +389,8 @@ fn show_already_running_message() {
 
 pub fn run() {
     let app = tauri::Builder::default()
-        // This must be registered before every other plugin so a second launch
-        // is rejected before it can build a second tray or webview.
+        // Register this first so a second launch exits before the app's own
+        // setup can create another tray icon.
         .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
             if let Some(window) = main_window(app) {
                 window_ctl::ensure_visible(&window);
