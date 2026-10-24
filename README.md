@@ -72,6 +72,7 @@ Quoty is designed to live on the desktop:
 - It is **not** always-on-top by default. Other application windows can cover it, just like a Rainmeter skin.
 - It stays visible after **Win+D** and after interacting with the desktop.
 - It does not appear in the taskbar.
+- Only one copy can run at a time. Launching Quoty again reveals the existing widget and shows a **Quoty is already running.** message.
 - Enable **Always on top** in Settings if you want it above normal windows.
 
 ### Tray menu
