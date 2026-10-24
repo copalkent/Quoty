@@ -1,0 +1,2244 @@
+/* ==========================================================================
+   Quoty - Floating Desktop Quota & Clock Widget Stylesheet
+   Pure neutral monochrome palette (black, white, gray). No gradients.
+   ========================================================================== */
+
+.stage {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  background: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Collapsed Pill Widget
+   -------------------------------------------------------------------------- */
+
+.pill {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0 13px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  box-shadow: var(--shadow), inset 0 1px 0 var(--highlight);
+  cursor: grab;
+  animation: pill-in 200ms var(--ease);
+  transition:
+    background-color 160ms var(--ease),
+    border-color 160ms var(--ease),
+    box-shadow 160ms var(--ease);
+}
+
+.pill:hover {
+  border-color: var(--border-strong);
+}
+
+.pill:active {
+  cursor: grabbing;
+}
+
+.pill-mark {
+  display: flex;
+  align-items: center;
+  color: var(--text);
+  opacity: 0.92;
+  transition: opacity 200ms var(--ease);
+}
+
+.pill-mark.is-live {
+  opacity: 0.5;
+}
+
+.pill-copy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pill-value {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.pill-caption {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  font-size: 9.5px;
+  color: var(--faint);
+  line-height: 1.2;
+}
+
+.pill-caption-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Dual Quotas on Outside Collapsed Widget */
+.pill-dual-container {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pill-quota-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.pill-quota-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.pill-quota-tag {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--faint);
+  text-transform: uppercase;
+}
+
+.pill-quota-val {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: #fff;
+}
+
+.pill-mini-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.pill-mini-fill {
+  height: 100%;
+  background: #ffffff;
+  border-radius: 999px;
+  transition: width 240ms var(--ease);
+}
+
+.pill-dual-divider {
+  width: 1px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.12);
+  flex: none;
+}
+
+.pill-chevron {
+  display: flex;
+  color: var(--faint);
+  transform: rotate(180deg);
+  transition:
+    color 160ms var(--ease),
+    transform 200ms var(--ease);
+}
+
+.pill:hover .pill-chevron {
+  color: var(--muted);
+  transform: rotate(180deg) translateY(-1px);
+}
+
+.status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex: none;
+  display: inline-block;
+}
+
+.status-dot.is-on {
+  background: var(--text);
+}
+
+.status-dot.is-off {
+  box-shadow: inset 0 0 0 1px var(--muted);
+  opacity: 0.75;
+}
+
+/* --------------------------------------------------------------------------
+   Expanded Panel Frame
+   -------------------------------------------------------------------------- */
+
+.panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  animation: none;
+}
+
+.panel.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Top Bar (Frameless Drag Area & Controls)
+   -------------------------------------------------------------------------- */
+
+.panel-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 10px 4px 13px;
+  cursor: grab;
+  user-select: none;
+  flex: none;
+}
+
+.panel-top-bar:active {
+  cursor: grabbing;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.brand-mark {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-raised);
+  color: var(--text);
+}
+
+.brand-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9.5px;
+  color: var(--faint);
+  white-space: nowrap;
+}
+
+.status-label {
+  font-weight: 450;
+  letter-spacing: -0.005em;
+}
+
+.panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.icon-button {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    background-color 140ms var(--ease),
+    border-color 140ms var(--ease),
+    color 140ms var(--ease);
+}
+
+.icon-button:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.icon-button:active {
+  transform: translateY(0.5px);
+}
+
+.icon-button.is-active {
+  background: var(--hover);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.chevron-up {
+  transform: rotate(180deg);
+}
+
+/* --------------------------------------------------------------------------
+   Scroll / Layout Container
+   -------------------------------------------------------------------------- */
+
+.rainmeter-main-widget {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 12px 10px;
+  gap: 4px;
+  overflow: hidden;
+  user-select: none;
+}
+
+.panel-scroll-container {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px 10px;
+  gap: 4px;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   1. Futuristic Clock & Date Header (Rainmeter Stencil Style)
+   -------------------------------------------------------------------------- */
+
+.rainmeter-clock-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4px 4px 6px;
+  user-select: none;
+  flex: none;
+}
+
+.rainmeter-clock-section--horizontal {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  padding: 2px 8px 8px;
+}
+
+.panel.is-unlocked .rainmeter-clock-section {
+  cursor: grab;
+}
+
+.panel.is-unlocked .rainmeter-clock-section:active {
+  cursor: grabbing;
+}
+
+.panel.is-locked .rainmeter-clock-section {
+  cursor: default;
+}
+
+.rainmeter-clock-weekday-huge {
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-transform: uppercase;
+  line-height: 0.95;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.85);
+  flex: none;
+}
+
+.rainmeter-clock-right-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3px;
+  line-height: 1;
+}
+
+.rainmeter-clock-time-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 6px;
+  line-height: 1;
+}
+
+.rainmeter-clock-time-digits {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.rainmeter-clock-time-seconds {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.72);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+  margin-left: 2px;
+}
+
+.rainmeter-clock-time-period {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.75);
+  margin-left: 4px;
+}
+
+.rainmeter-clock-weekday {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-top: 6px;
+  line-height: 1.2;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+}
+
+.rainmeter-clock-date {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+/* --------------------------------------------------------------------------
+   Spotify Player (Matching Reference Image)
+   -------------------------------------------------------------------------- */
+
+.rainmeter-player-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 8px 6px 10px;
+  margin-top: 6px;
+  user-select: none;
+  flex: none;
+}
+
+.player-timeline-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 0 4px;
+}
+
+.player-time {
+  font-size: 11px;
+  font-weight: 600;
+  color: #cccccc;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  min-width: 38px;
+}
+
+.player-time--elapsed {
+  text-align: left;
+}
+
+.player-time--remaining {
+  text-align: right;
+}
+
+.player-progress-track {
+  flex: 1;
+  height: 18px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.player-progress-track::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+}
+
+.spotify-brand-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 2px;
+}
+
+.spotify-brand-icon {
+  width: 13px;
+  height: 13px;
+  color: #1DB954;
+  flex: none;
+}
+
+.spotify-brand-label {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #1DB954;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.player-progress-fill {
+  position: absolute;
+  left: 0;
+  height: 1.5px;
+  background: #1DB954;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.player-scrubber-dot {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 7.5px;
+  height: 7.5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 6px #1DB954;
+  pointer-events: none;
+  transition: transform 100ms ease;
+}
+
+.player-progress-track:hover .player-scrubber-dot {
+  transform: translate(-50%, -50%) scale(1.3);
+}
+
+.player-meta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  margin-top: 6px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.player-artist-name {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #b5b5b5;
+  line-height: 1.2;
+}
+
+.player-track-name {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.player-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  margin-top: 6px;
+}
+
+.player-btn {
+  appearance: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: grid;
+  place-items: center;
+  color: #1DB954; /* Official Spotify Green */
+  transition:
+    transform 120ms ease,
+    filter 150ms ease,
+    color 150ms ease;
+}
+
+.player-btn:hover {
+  color: #1ED760;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 6px rgba(29, 185, 84, 0.6));
+}
+
+.player-btn:active {
+  transform: scale(0.94);
+}
+
+.control-glyph {
+  width: 24px;
+  height: 20px;
+  display: block;
+}
+
+.player-btn--play .control-glyph {
+  width: 22px;
+  height: 22px;
+}
+
+/* Minimal Inactive Spotify State */
+.rainmeter-player-block--inactive {
+  padding: 4px 6px;
+  margin-top: 2px;
+}
+
+.player-idle-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+.player-idle-icon {
+  width: 13px;
+  height: 13px;
+  color: #1DB954;
+}
+
+.player-idle-text {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+}
+
+.player-idle-btn {
+  background: transparent;
+  border: none;
+  color: #1DB954;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 1px;
+  transition: transform 120ms ease;
+}
+
+.player-idle-btn:hover {
+  transform: scale(1.15);
+}
+
+.control-glyph-small {
+  width: 12px;
+  height: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   Rainmeter HUD Quota Block (Direct Weekly & Hourly Budgets)
+   -------------------------------------------------------------------------- */
+
+.rainmeter-quota-block {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 4px 6px 2px;
+  margin-top: 2px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  user-select: none;
+  flex: none;
+  overflow: hidden;
+}
+
+.hud-quota-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hud-quota-title-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.hud-quota-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a8a8a8;
+}
+
+.hud-plan-tag {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ededed;
+}
+
+.hud-quota-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hud-quota-time {
+  font-size: 8.5px;
+  color: #888888;
+  font-variant-numeric: tabular-nums;
+}
+
+.hud-refresh-btn {
+  appearance: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #888888;
+  padding: 2px;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  transition: color 120ms ease;
+}
+
+.hud-refresh-btn:hover {
+  color: #ffffff;
+}
+
+.hud-budgets-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 9px;
+}
+
+.hud-budget-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5px;
+}
+
+.hud-budget-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.hud-budget-label {
+  color: #d4d4d4;
+  letter-spacing: 0.04em;
+  font-size: 9.5px;
+}
+
+.hud-budget-window {
+  color: #888888;
+  font-weight: 500;
+  font-size: 8.5px;
+}
+
+.hud-budget-pct {
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.hud-budget-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+  margin: 1px 0;
+}
+
+.hud-budget-fill {
+  height: 100%;
+  background: #ffffff;
+  border-radius: inherit;
+  transition: width 400ms var(--ease);
+}
+
+.hud-budget-meta {
+  font-size: 8px;
+  color: #888888;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.hud-models-section {
+  margin-top: 9px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hud-models-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #9c9c9c;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 0;
+  transition: color 140ms ease;
+}
+
+.hud-models-toggle:hover {
+  color: #ffffff;
+}
+
+.hud-chevron--open {
+  transform: rotate(180deg);
+  transition: transform 150ms ease;
+}
+
+.hud-chevron--closed {
+  transition: transform 150ms ease;
+}
+
+.hud-models-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5px;
+  margin-top: 6px;
+  max-height: 120px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  padding-right: 2px;
+}
+
+.hud-model-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #cfcfcf;
+  padding: 2.5px 5px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.hud-model-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 170px;
+  font-weight: 500;
+}
+
+.hud-model-meta {
+  font-size: 7.5px;
+  color: #777777;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hud-model-val {
+  font-weight: 600;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+}
+
+.hud-quota-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  padding: 10px 4px;
+}
+
+.hud-state-kicker {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #888888;
+}
+
+.hud-state-msg {
+  margin: 0;
+  font-size: 10.5px;
+  color: #b0b0b0;
+}
+
+.hud-retry-btn {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 3px 8px;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   2. Transparent Model Quota Section
+   -------------------------------------------------------------------------- */
+
+.quota-section {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 10px 11px;
+  border-radius: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(8px);
+  flex: none;
+  transition:
+    background-color 160ms var(--ease),
+    border-color 160ms var(--ease);
+}
+
+.quota-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--border);
+  flex: none;
+}
+
+.quota-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.quota-section-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.quota-count-tag {
+  font-size: 8.5px;
+  font-weight: 500;
+  color: var(--faint);
+  padding: 1px 4px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.quota-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.quota-updated-text {
+  font-size: 9px;
+  color: var(--faint);
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.quota-refresh-btn {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    background-color 140ms var(--ease),
+    color 140ms var(--ease);
+}
+
+.quota-refresh-btn:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.quota-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Pools */
+
+.quota-pools-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex: none;
+}
+
+.quota-pool {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quota-pool-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.quota-pool-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quota-badge {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1px 4px;
+  border-radius: 4px;
+  flex: none;
+  line-height: 1.2;
+}
+
+.quota-badge--shared {
+  color: var(--muted);
+  border: 1px solid var(--border-strong);
+  background: transparent;
+}
+
+.quota-badge--own {
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  background: var(--hover);
+}
+
+.quota-badge--pool {
+  color: var(--faint);
+  border: 1px solid var(--border);
+  background: transparent;
+}
+
+.quota-pool-buckets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+}
+
+.bucket-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.bucket-info {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.bucket-label {
+  font-size: 9.5px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bucket-percentage {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  flex: none;
+}
+
+.compact-progress {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  margin: 3px 0 2px;
+  border-radius: 999px;
+  background: var(--track);
+  overflow: hidden;
+}
+
+.compact-progress.progress--unknown {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--fill);
+  transition: width 500ms var(--ease);
+}
+
+.bucket-reset-meta {
+  font-size: 8.5px;
+  color: var(--faint);
+  letter-spacing: 0.005em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Models breakdown */
+
+.quota-models-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-height: 0;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+}
+
+.quota-models-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  flex: none;
+}
+
+.models-heading {
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.models-count {
+  font-size: 8.5px;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.quota-models-scroll {
+  flex: 1;
+  min-height: 0;
+  max-height: 140px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin: 0 -4px;
+  padding: 0 4px 2px;
+  scrollbar-gutter: stable;
+}
+
+.provider-subgroup + .provider-subgroup {
+  margin-top: 5px;
+}
+
+.provider-subgroup-title {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 3px 0 2px;
+  background: var(--bg);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.model-quota-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 23px;
+  margin: 0 -3px;
+  padding: 0 3px;
+  border-radius: 5px;
+  transition: background-color 120ms var(--ease);
+}
+
+.model-quota-item:hover {
+  background: var(--hover);
+}
+
+.model-quota-main {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+}
+
+.model-name-text {
+  font-size: 10.5px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.model-quota-aside {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+}
+
+.model-reset-text {
+  font-size: 8px;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.model-window-tag {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.model-quota-value {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  min-width: 28px;
+  text-align: right;
+}
+
+.quota-models-empty {
+  font-size: 9.5px;
+  color: var(--faint);
+  padding: 6px 0;
+}
+
+/* State cards */
+
+.quota-state-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 6px 2px 8px;
+}
+
+.state-badge {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.state-message-title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+
+.state-message-detail {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.state-retry-btn {
+  appearance: none;
+  margin-top: 4px;
+  height: 24px;
+  padding: 0 9px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--bg-raised);
+  color: var(--text);
+  font-size: 9.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 140ms var(--ease),
+    border-color 140ms var(--ease);
+}
+
+.state-retry-btn:hover {
+  background: var(--hover);
+}
+
+.state-retry-btn:disabled {
+  color: var(--faint);
+  cursor: default;
+}
+
+/* --------------------------------------------------------------------------
+   3. Name and Personalization Greeting
+   -------------------------------------------------------------------------- */
+
+.personal-greeting {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4px 0 2px;
+  flex: none;
+  user-select: none;
+}
+
+.greeting-text {
+  font-size: 12px;
+  font-weight: 450;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+.greeting-name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.greeting-neutral {
+  font-weight: 450;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   Settings Sheet Modal
+   -------------------------------------------------------------------------- */
+
+.sheet {
+  position: absolute;
+  inset: 10px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
+  animation: sheet-in 180ms var(--ease);
+  overflow: hidden;
+}
+
+.sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 10px 6px 14px;
+  flex: none;
+}
+
+.sheet-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: var(--text);
+}
+
+.sheet-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 4px 14px 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.field-label {
+  font-size: 10px;
+  font-weight: 550;
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+
+.field-hint {
+  font-size: 9px;
+  line-height: 1.4;
+  color: var(--faint);
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.text-input {
+  appearance: none;
+  height: 28px;
+  padding: 0 9px;
+  border: 1px solid var(--border-strong);
+  border-radius: 7px;
+  background: var(--bg-raised);
+  color: var(--text);
+  font-size: 11px;
+  outline: none;
+  transition:
+    border-color 140ms var(--ease),
+    box-shadow 140ms var(--ease);
+}
+
+.text-input:focus {
+  border-color: var(--text);
+}
+
+.text-input::placeholder {
+  color: var(--faint);
+}
+
+.segmented {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--track);
+}
+
+.segment {
+  appearance: none;
+  flex: 1;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 9.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 140ms var(--ease),
+    color 140ms var(--ease);
+}
+
+.segment:hover {
+  color: var(--text);
+}
+
+.segment.is-selected {
+  background: var(--bg-raised);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.switch {
+  position: relative;
+  flex: none;
+  width: 30px;
+  height: 18px;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--track);
+  cursor: pointer;
+  transition:
+    background-color 160ms var(--ease),
+    border-color 160ms var(--ease);
+}
+
+.switch[data-on="true"] {
+  background: var(--text);
+  border-color: var(--text);
+}
+
+.switch-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg-raised);
+  box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.2);
+  transition: transform 160ms var(--ease), background-color 160ms var(--ease);
+}
+
+.switch[data-on="true"] .switch-thumb {
+  transform: translateX(12px);
+  background: var(--bg);
+}
+
+.source {
+  margin-top: 2px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.source-value {
+  font-size: 9.5px;
+  color: var(--muted);
+}
+
+.source-note {
+  margin: 0;
+  font-size: 9px;
+  line-height: 1.5;
+  color: var(--faint);
+}
+
+.field-error {
+  margin: 0;
+  font-size: 9.5px;
+  color: var(--text);
+  text-decoration: underline dotted;
+}
+
+.sheet-actions {
+  display: flex;
+  gap: 6px;
+  padding: 8px 12px 10px;
+  border-top: 1px solid var(--border);
+  flex: none;
+}
+
+.text-button {
+  appearance: none;
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 9.5px;
+  cursor: pointer;
+  transition:
+    background-color 140ms var(--ease),
+    border-color 140ms var(--ease),
+    color 140ms var(--ease);
+}
+
+.text-button:hover {
+  background: var(--hover);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+/* --------------------------------------------------------------------------
+   Animations
+   -------------------------------------------------------------------------- */
+
+@keyframes pill-in {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-2px) scale(0.992);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes panel-out {
+  to {
+    opacity: 0;
+    transform: translateY(-2px) scale(0.995);
+  }
+}
+
+@keyframes clock-header-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.is-spinning {
+  animation: spin 700ms linear infinite;
+}
+
+/* ==========================================================================
+   Rainmeter Desktop Widget Aesthetic Elements
+   ========================================================================== */
+
+/* 1. Floating Rainmeter Controls Header */
+.hud-floating-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px 4px 12px;
+  cursor: grab;
+  user-select: none;
+  flex: none;
+  z-index: 10;
+}
+
+.hud-floating-bar:active {
+  cursor: grabbing;
+}
+
+.hud-brand-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.hud-status-text {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.hud-floating-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hud-icon-btn {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition:
+    background-color 140ms var(--ease),
+    border-color 140ms var(--ease),
+    color 140ms var(--ease),
+    transform 140ms var(--ease);
+}
+
+.hud-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.hud-icon-btn:active {
+  transform: translateY(0);
+}
+
+.hud-icon-btn.is-active {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* 2. Clock & Date Stencil Block */
+.rainmeter-clock-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 12px 14px 8px;
+  cursor: grab;
+  user-select: none;
+}
+
+.rainmeter-clock-block:active {
+  cursor: grabbing;
+}
+
+.rainmeter-day-header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.rainmeter-stencil-svg {
+  width: 245px;
+  height: 44px;
+  max-width: 90%;
+  fill: #ffffff;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+}
+
+.rainmeter-date-line {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-top: 10px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.rainmeter-time-line {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 6px;
+  margin-bottom: 12px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* 3. Spotify Music Player */
+.rainmeter-player-block {
+  padding: 4px 14px 12px;
+  user-select: none;
+}
+
+.player-timeline-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px;
+}
+
+.player-time {
+  font-size: 10.5px;
+  font-family: "Courier New", Courier, monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.04em;
+  min-width: 38px;
+}
+
+.player-time--remaining {
+  text-align: right;
+}
+
+.player-progress-track {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+  padding: 6px 0;
+  background-clip: content-box;
+}
+
+.player-progress-fill {
+  height: 3px;
+  background: #ffffff;
+  border-radius: 999px;
+  position: absolute;
+  top: 6px;
+  left: 0;
+  pointer-events: none;
+}
+
+.player-scrubber-dot {
+  position: absolute;
+  top: 7.5px;
+  transform: translate(-50%, -50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+}
+
+.player-meta-group {
+  text-align: center;
+  margin: 12px 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.player-artist-name {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.player-track-name {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.75);
+  text-transform: uppercase;
+  max-width: 90%;
+  margin: 0 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-controls-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  margin-top: 4px;
+}
+
+.player-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #1DB954;
+  transition: transform 120ms ease, opacity 120ms ease, filter 120ms ease;
+  filter: drop-shadow(0 0 4px rgba(29, 185, 84, 0.35));
+}
+
+.player-btn:hover {
+  opacity: 0.85;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px rgba(29, 185, 84, 0.7));
+}
+
+.player-btn:active {
+  transform: scale(0.95);
+}
+
+.control-glyph {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+/* 4. Rainmeter Quota HUD Block */
+.rainmeter-quota-block {
+  padding: 6px 4px 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  overflow: hidden;
+  user-select: none;
+}
+
+.hud-quota-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 2px;
+  border-bottom: none;
+}
+
+.hud-quota-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hud-quota-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+}
+
+.hud-plan-tag {
+  font-size: 8.5px;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.hud-quota-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hud-quota-time {
+  font-size: 8.5px;
+  color: rgba(255, 255, 255, 0.5);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.hud-refresh-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 120ms ease;
+}
+
+.hud-refresh-btn:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+/* Two Column Antigravity Group View (Gemini Models & Claude/GPT models) */
+.hud-groups-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  width: 100%;
+}
+
+.hud-group-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: transparent !important;
+  border: none !important;
+}
+
+.hud-group-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hud-group-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  text-transform: none;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+}
+
+.hud-group-limits {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hud-limit-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: transparent !important;
+  border: none !important;
+}
+
+.hud-limit-row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.hud-limit-name {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hud-limit-percent {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+}
+
+.hud-limit-track {
+  width: 100%;
+  height: 3.5px;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.hud-limit-fill {
+  height: 100%;
+  background: #ffffff;
+  border-radius: 999px;
+  transition: width 240ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: width;
+}
+
+.hud-limit-footer {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.hud-limit-reset {
+  font-size: 8.5px;
+  color: rgba(255, 255, 255, 0.55);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.hud-limit-reset--idle {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Offline & Error State */
+.hud-quota-state {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.hud-quota-state--error {
+  border-color: rgba(255, 100, 100, 0.2);
+  background: rgba(255, 80, 80, 0.04);
+}
+
+.hud-state-kicker {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.hud-state-msg {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+}
+
+.hud-retry-btn {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 4px 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 9.5px;
+  cursor: pointer;
+  transition: all 120ms ease;
+}
+
+.hud-retry-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   Bottom Toolbar & Accessible Resize Handle
+   -------------------------------------------------------------------------- */
+
+.hud-bottom-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 4px 4px;
+  margin-top: auto;
+  user-select: none;
+  position: relative;
+}
+
+.hud-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hud-toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 140ms var(--ease);
+}
+
+.hud-toolbar-btn:hover {
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.hud-toolbar-btn.is-active {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.hud-toolbar-btn-text {
+  line-height: 1;
+}
+
+.hud-resize-handle {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  cursor: nwse-resize;
+  color: rgba(255, 255, 255, 0.35);
+  transition: color 140ms ease;
+  padding: 2px;
+}
+
+.hud-resize-handle:hover {
+  color: #ffffff;
+}
+
+.hud-resize-glyph {
+  width: 13px;
+  height: 13px;
+}
+
+

@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Only the widget window, and only the event channel the widget needs.",
+  "windows": ["main"],
+  "permissions": ["core:event:default"]
+}
